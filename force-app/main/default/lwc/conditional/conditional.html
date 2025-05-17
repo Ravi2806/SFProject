@@ -1,0 +1,16 @@
+<template>
+
+    <lightning-button variant="brand" label="Hide/Unhide" title="Primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+
+        <template if:true = {isVisible}>
+            <lightning-card  title="Conditional Element">
+                <lightning-button label="New" slot="actions"></lightning-button>
+                <p class="slds-p-horizontal_small">Condition Body</p>
+                <p slot="footer">Card Footer</p>
+            </lightning-card>
+
+        </template>
+
+    
+
+</template>

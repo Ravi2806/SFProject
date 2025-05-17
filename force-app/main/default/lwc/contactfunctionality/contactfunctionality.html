@@ -1,0 +1,76 @@
+<template>
+    <lightning-card title="Search Contacts">
+        <div class="slds-p-around_medium">
+            <lightning-input label="First Name" name="firstName" onchange={handleInputChange}></lightning-input>
+            <lightning-input label="Last Name" name="lastName" onchange={handleInputChange}></lightning-input>
+            <lightning-input label="Email" name="email" onchange={handleInputChange}></lightning-input>
+
+            <lightning-button 
+                label="Search" 
+                variant="brand" 
+                class="slds-m-top_medium"
+                disabled={isDisabled}
+                onclick={handleSearch}>
+            </lightning-button> 
+
+            <template if:true={contacts}>
+                <template if:true={contacts.length}>
+                    <ul class="slds-m-top_medium">
+                        <template for:each={contacts} for:item="contact">
+                            <li key={contact.Id} class="slds-box slds-m-vertical_x-small">
+                                <lightning-layout vertical-align="center" multiple-rows>
+                                    <lightning-layout-item size="1" class="slds-text-align_left">
+                                        <div class="slds-p-around_medium">
+                                            <lightning-input 
+                                                type="checkbox" 
+                                                data-id ={contact.Id}
+                                                onchange={handleCheckboxChange}>
+                                            </lightning-input>
+                                            </div>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="7">
+                                <div class="slds-text-link" 
+                                     style="cursor:pointer;" 
+                                     data-id={contact.Id}
+                                     onclick={navigateToRecord}>
+                                <p><strong>{contact.FirstName} {contact.LastName}</strong></p>
+                                <p>{contact.Email}</p>
+                            </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2" class="slds-text-align_right">
+                                <lightning-button 
+                                    label="Edit" 
+                                    onclick={handleEdit} 
+                                    data-id={contact.Id}
+                                    class="slds-m-right_small">
+                                </lightning-button>
+                            </lightning-layout-item>
+                                <lightning-layout-item size="2" class="slds-text-align_right">
+                                <lightning-button 
+                                    label="Delete" 
+                                    onclick={handleDelete} 
+                                    data-id={contact.Id}>
+                                </lightning-button>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+                <template if:true = {isVisible}>
+                <lightning-button 
+                    label="Delete Marked Contacts" 
+                    variant="destructive"  
+                    onclick={handleDelete2}>
+                </lightning-button>
+            </template>
+                <template if:false={contacts.length}>
+                    <p class="slds-text-color_weak slds-m-top_medium">No contacts found.</p>
+                </template>
+            </template>
+            <template if:true={error}>
+                <p class="slds-text-color_error">{error.body.message}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
