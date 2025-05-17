@@ -1,32 +1,5 @@
 public class ReservationTriggerHandler {
     
-            /*  public static void handleActivitiesBeforeUpdateInsert(List<Reservation__c> newRecord){
-        Map<String, DateTime> newStartDate = new Map<String, DateTime>();
-        Map<String, DateTime> newEndDate = new Map<String, DateTime>();
-        	for(Reservation__c revRecord : newRecord){ 
-        		if(revRecord.Id != Null && revRecord.Status__c == 'Confirmed' && revRecord.Start_DateTime__c != Null && revRecord.End_DateTime__c != Null){
-        			newStartDate.put(revrecord.Resource__c, revrecord.Start_DateTime__c);
-        			newEndDate.put(revRecord.Resource__c, revRecord.End_DateTime__c);
-        		}if(revRecord.Status__c != 'Confirmed'){
-        			return;
-        		}
-        } 
-        Map<String, Boolean> overLapReservation = new Map<String, Boolean>();
-        List<Reservation__c> reservationRecords = [Select Id, Status__c, Start_DateTime__c,  End_DateTime__c, Resource__c from Reservation__c where Status__c = 'Confirmed'];
-        	for(Reservation__c oldRecords : reservationRecords){
-        		if(newStartDate.containsKey(oldRecords.Resource__c) && newEndDate.containsKey(oldRecords.Resource__c)){
-        			if (newStartDate.get(oldRecords.Resource__c) < oldRecords.End_DateTime__c && newEndDate.get(oldRecords.Resource__c) > oldRecords.Start_DateTime__c){
-        				overLapReservation.put(oldRecords.Resource__c, True);
-        		}   
-        	}
-        }
-        for(Reservation__c revRecord : newRecord){
-        		if(revRecord.Id != Null && revRecord.Status__c == 'Confirmed' && overLapReservation.get(revRecord.Resource__c) == True){
-        			revRecord.addError('Reservation not possible due to overlapping');
-        		}
-        	}
-        }*/
-    
     public static void handleActivitiesBeforeUpdateInsert(List<Reservation__c> newRecord){
         Map<Id, List<Reservation__c>> newReservation = new Map<Id, List<Reservation__c>>();
         Set<Id> revIds = new Set<Id>();
